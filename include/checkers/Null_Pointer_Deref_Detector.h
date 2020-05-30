@@ -95,13 +95,13 @@ void getVar(const Stmt*stmt,int&id,savePointer* &save){
     }
 }
 
-void getMalloc(const Stmt*S, int &id, bool flag, savePointer* &save){ 
-  for(auto bt=S->child_begin();bt!=S->child_end();bt++)
+void getMalloc(const Stmt*stmt, int &id, bool flag, savePointer* &save){ 
+  for(auto bt=stmt->child_begin();bt!=stmt->child_end();bt++)
         getMalloc(*bt,id, flag, save);
     
-  if(strcmp(S->getStmtClassName(),"DeclRefExpr")==0)
+  if(strcmp(stmt->getStmtClassName(),"DeclRefExpr")==0)
     {
-      ValueStmt*F=(ValueStmt*)S;
+      ValueStmt*F=(ValueStmt*)stmt;
       Expr*G=F->getExprStmt();
       DeclRefExpr*H=(DeclRefExpr*)G;
       id = H->getDecl()->getGlobalID();
