@@ -281,8 +281,8 @@ void NPD_Detect(std::vector<int>ifBlock){
     int col0 = -1, line0=-1, col=-1,line=-1;
     string file0, file;
     RED
-    showSave();
-    showIf(ifBlock);
+   /*  showSave();
+    showIf(ifBlock); */
     CLOSE
     bool npd = false;
     cout<<"I'm in detect of each route.\n";
