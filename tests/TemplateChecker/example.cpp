@@ -2,8 +2,25 @@
 #include<string.h>
 #include<stdio.h>
 
+void mem_leak1(int n){
+  new int;
+  int*p=NULL;
+  if(n!=0)
+  {
+    p=new int;
+  }
+  else if(n==1)
+  {
+    int*q=(int*)malloc(sizeof(int)*n);
+  }
+  else if(n==2)
+  {
+    int*u=new int[n];
+  }
+}
+
 //mixup的分支检测待完善，合并测试的时候可以测出别的就ok
-/* int mixup(){
+int mixup(){
     int * a = NULL;
     int *b = new int;
     int *c =(int *)malloc(sizeof(int));
@@ -20,7 +37,7 @@
     *b = 3;
     *c = 3;
     return 0;
-} */
+} 
 
 int malloc(){
     std::string *str = (std::string *)malloc(10);

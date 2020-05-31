@@ -24,7 +24,7 @@ std::map<int, vector<savePointer>>record;
 //std::vector<int>ifBlock;
 std::vector<savePointer> recordPointer;
 
-/* void showSave(){
+void showSave(){
     cout<<setw(10)<<"pointerID";
     cout<<setw(10)<<"BlockID";
     cout<<setw(10)<<"Line";
@@ -53,7 +53,7 @@ void showIf(std::vector<int>ifBlock){
     for (auto i : ifBlock)
         cout<<i<<" ";
     cout<<endl<<endl;
-} */
+}
 
 void getVar(const Stmt*stmt,int&id,savePointer* &save){
     //cout<<"IN getVar!\n";
@@ -281,12 +281,13 @@ void NPD_Detect(std::vector<int>ifBlock){
     int col0 = -1, line0=-1, col=-1,line=-1;
     string file0, file;
     RED
-    //showSave();
-    //showIf(ifBlock);
+    showSave();
+    showIf(ifBlock);
     CLOSE
     bool npd = false;
-    //cout<<"I'm in detect of each function.\n";
-    for (int i = 0; i<recordPointer.size()-1;i++){
+    cout<<"I'm in detect of each route.\n";
+    for (int i = 0; recordPointer.size()>0 && i<recordPointer.size()-1;i++){
+        cout<<"**hello here!\n";
         int var_id = recordPointer[i].id;
         //cout<<var_id<<endl;
         bool flag = false;
@@ -338,8 +339,8 @@ void NPD_Detect(std::vector<int>ifBlock){
                     may =  may ||(find(ifBlock.begin(),ifBlock.end(),recordPointer[j].block)!=ifBlock.end());
                     cout<<"derefer"<<" "<<line<<" "<<may<<endl;
                     if (may){
-                        error_info* loc_set_null=new_error_info(NULL,file0,line0,col0,TYPE_NOTE,MAY_NPD_ERROR_TYPE_SET_NULL,route);
-                        error_info* loc_dereference=new_error_info(loc_set_null,file,line,col,TYPE_ERROR,MAY_NPD_ERROR_TYPE_DEREFERENCE, route);
+                        error_info* loc_set_null=new_error_info(NULL,file0,line0,col0,TYPE_NOTE,NPD_ERROR_TYPE_SET_NULL,route);
+                        error_info* loc_dereference=new_error_info(loc_set_null,file,line,col,TYPE_ERROR,NPD_ERROR_TYPE_DEREFERENCE, route);
                         result.push(loc_dereference);
                     }
                     else{
